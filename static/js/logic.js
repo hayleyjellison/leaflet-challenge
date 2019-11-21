@@ -33,16 +33,16 @@ function getColor(m) {
         let props = data.properties
         var magns = props.mag
         let color = "";
-        if (props.mag >= 8) {
+        if (props.mag >= 7.5) {
             color = "#FF0000";
         }
-        else if (props.mag >= 7) {
+        else if (props.mag >= 6.5) {
             color = "#FF3600";
         }
-        else if (props.mag >= 6.1) {
+        else if (props.mag >= 5.5) {
             color = "#FF8700";
         }
-        else if (props.mag >= 5.5) {
+        else if (props.mag >= 4.5) {
             color = "#FFC100";
         }
         else if (props.mag >= 2.5) {
@@ -54,7 +54,7 @@ function getColor(m) {
         if (location) {
             let coord = [location.coordinates[1], location.coordinates[0]]
             return L.circle(coord, {
-                radius: markerSize(props.mag * 1000000),
+                radius: magns * 20000,
                 color: "white",
                 fillColor: color,
                 fillOpacity: 0.75,
@@ -67,8 +67,10 @@ function getColor(m) {
         legend.onAdd = function() {
             const div = L.DomUtil.create("div", "info legend");
             labels = ["Magnitude"];
-            mags = ["0-2.4","2.5-5.4","5.5-6","6.1-6.9","7-7.9",">=8"]
-            colors = [1,4,5.7,6.5,7.5,8.9]
+            mags = ["0-2.4","2.5-4.4","4.5-5.4","5.5-6.4","6.5-7.4",">=7.5"]
+            colors = [1,4,5.2,5.7,6.6,8.9]
+
+            div.innerHTML += "<ul>" + labels.join("") + "</ul>";
 
             for (var i = 0; i < mags.length; i++) {
                 div.innerHTML +=
@@ -76,7 +78,7 @@ function getColor(m) {
                     (mags[i] ? mags[i] + '<br>' : '+');
             }
     
-            div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+            
             return div;
         };
     
